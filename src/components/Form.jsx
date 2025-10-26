@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 const Form = () => {
   const [totalNumber, setTotalNumber] = useState(0);
   const [finishNumber, setFinishNumber] = useState(0);
+  const [error, setError] = useState('');
   const [result, setResult] = useState('');
 
   const getTotalNumber = e => {
@@ -14,8 +15,14 @@ const Form = () => {
   };
 
   useEffect(() => {
+    if(finishNumber > totalNumber){
+      setError('Finish task will be lower then total task');
+      setResult('00');
+      return
+    }
     const getPersen = parseFloat((finishNumber / totalNumber) * 100) || '00';
     setResult(String(getPersen));
+    setError('');
   }, [totalNumber, finishNumber]);
 
   return (
@@ -24,10 +31,11 @@ const Form = () => {
         <div className="card bg-base-100 w-sm shrink-0 shadow-2xl">
           <div className="card-body">
             <form className="fieldset">
-              <input onChange={getTotalNumber} type="number" className="input text-xl w-full" placeholder="Total Number" />
-              <input onChange={getFinishNumber} name='finish' type="number" className="input text-xl w-full" placeholder="Finish Number" />
-              <h2 className='font-bold text-center text-6xl'>{
-                result == Infinity ? '00' : (result === '00' ? '00' : `${result.slice(0, 5)} %`)
+              <input onChange={getTotalNumber} type="number" className="input text-xl w-full" placeholder="Total Task" />
+              <input onChange={getFinishNumber} name='finish' type="number" className="input text-xl w-full" placeholder="Finish Task" />
+              <p className='text-[16px] text-red-600'>{error}</p>
+              <h2 className='font-semibold text-center text-6xl'>{
+                result == Infinity ? '00' : (result === '00' ? result : `${result.slice(0, 5)} %`)
               }</h2>
               <button type='reset' onClick={() => {
                 setResult('00'),
