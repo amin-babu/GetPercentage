@@ -28,7 +28,7 @@ const Form = () => {
   return (
     <div className="hero bg-base-200 min-h-[calc(100vh-64px)]">
       <div className="hero-content flex-col">
-        <div className="card bg-base-100 w-sm shrink-0 shadow-2xl">
+        <div className="card bg-base-100 max-w-sm shrink-0 shadow-2xl">
           <div className="card-body">
             <form className="fieldset">
               <input onChange={getTotalNumber} type="number" className="input text-xl w-full" placeholder="Total Task" />
